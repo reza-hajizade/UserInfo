@@ -1,4 +1,9 @@
+using UserInfo.Endpoints;
+using UserInfo.Infrastructure.Extensions;
+
 var builder = WebApplication.CreateBuilder(args);
+
+builder.AddApplicationServices();
 
 
 builder.Services.AddEndpointsApiExplorer();
@@ -14,8 +19,10 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-app.UseAuthorization();
 
-app.MapControllers();
+app.MapGroup("/api/v1/user")
+    .WithTags("userInfo")
+    .MapUserInfoEndpoints();
+
 
 app.Run();
